@@ -37,7 +37,7 @@ const Home = () => {
         return null;
     }
 
-    const toggleSearch = (ev) => {
+    const toggleSearch = ev => {
         setSearchType(ev.target.value);
 
     }
@@ -49,7 +49,7 @@ const Home = () => {
             <div>
                 <label htmlFor="shows-search">
                     Shows
-                    <input type='radio' id='shows-search' value='show' checked={isSearchShow} onChange={toggleSearch} />
+                    <input type='radio' id='shows-search' value='shows' checked={isSearchShow} onChange={toggleSearch} />
                 </label>
                 <label htmlFor="actors-search">
                     Actors
