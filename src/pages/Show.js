@@ -5,6 +5,7 @@ import ShowMainData from '../show/ShowMainData';
 import Data from '../show/Data';
 import Seasons from '../show/Seasons';
 import Cast from '../show/Cast';
+import { InfoBlock, ShowPageWrapper } from './ShowStylePages';
 const reducer = (prevState, action) => {
     switch (action.type) {
         case 'FETCH_SUCCESS': {
@@ -51,7 +52,7 @@ const Show = () => {
         };
 
     }, [id])
-    console.log("show", show);
+
 
     if (isLoading) {
         return <div>Data is being loading</div>
@@ -59,21 +60,21 @@ const Show = () => {
     if (error) {
         return <div>Error occured</div>
     }
-    return <div>
+    return <ShowPageWrapper>
         <ShowMainData image={show.image} name={show.name} rating={show.rating} summary={show.summary} tags={show.genres} />
-        <div>
+        <InfoBlock>
             <h2>Details</h2>
             <Data status={show.status} network={show.network} premered={show.premered} />
-        </div>
-        <div>
+        </InfoBlock>
+        <InfoBlock>
             <h2>Season</h2>
             <Seasons seasons={show._embedded.seasons} />
-        </div>
-        <div>
+        </InfoBlock>
+        <InfoBlock>
             <h2>Cast</h2>
             <Cast cast={show._embedded.cast} />
-        </div>
-    </div>
+        </InfoBlock>
+    </ShowPageWrapper>
 }
 
 export default Show
