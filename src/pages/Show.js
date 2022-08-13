@@ -1,6 +1,10 @@
 import React, { useEffect, useReducer } from 'react'
 import { useParams } from 'react-router-dom';
 import { getApi } from '../misc/config';
+import ShowMainData from '../show/ShowMainData';
+import Data from '../show/Data';
+import Seasons from '../show/Seasons';
+import Cast from '../show/Cast';
 const reducer = (prevState, action) => {
     switch (action.type) {
         case 'FETCH_SUCCESS': {
@@ -33,7 +37,7 @@ const Show = () => {
     useEffect(() => {
 
         let isMounted = true;
-        getApi(`/shows/${id}?embed[]=episodes&embed[]=cast`).then(result => {
+        getApi(`/shows/${id}?embed[]=seasons&embed[]=cast`).then(result => {
             if (isMounted) {
                 dispatch({ type: 'FETCH_SUCCESS', show: result });
             }
@@ -55,7 +59,21 @@ const Show = () => {
     if (error) {
         return <div>Error occured</div>
     }
-    return <div>This is show pages</div>
+    return <div>
+        <ShowMainData image={show.image} name={show.name} rating={show.rating} summary={show.summary} tags={show.genres} />
+        <div>
+            <h2>Details</h2>
+            <Data status={show.status} network={show.network} premered={show.premered} />
+        </div>
+        <div>
+            <h2>Season</h2>
+            <Seasons seasons={show._embedded.seasons} />
+        </div>
+        <div>
+            <h2>Cast</h2>
+            <Cast cast={show._embedded.cast} />
+        </div>
+    </div>
 }
 
 export default Show
