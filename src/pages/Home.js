@@ -2,10 +2,11 @@ import React, { useState } from "react";
 import ActorGrid from "../actor/ActorGrid";
 import MainLayout from '../components/MainLayout'
 import { getApi } from "../misc/config";
+import { useLastQuary } from "../misc/custom-hooks";
 import ShowGrid from "../show/ShowGrid";
 
 const Home = () => {
-    const [input, setInput] = useState('');
+    const [input, setInput] = useLastQuary();
     const [result, setResult] = useState(null);
     const [searchType, setSearchType] = useState('shows');
     const isSearchShow = searchType === 'shows';
@@ -41,7 +42,7 @@ const Home = () => {
         setSearchType(ev.target.value);
 
     }
-    console.log(searchType)
+
 
     return (
         <MainLayout>
